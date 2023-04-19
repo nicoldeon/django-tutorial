@@ -1,14 +1,62 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend>
-            <h1>{{ question.question_text }}</h1>
-        </legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-        {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
-</form>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- {% load static %} -->
+
+<!-- <link rel="stylesheet" href="{% static 'polls/style.css' %}"> -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="panel panel-primary">
+                <form action="{% url 'polls:vote' question.id %}" method="post">
+                    {% csrf_token %}
+
+
+                    <div class="panel-heading" style="margin-bottom: 20px;">
+
+                        <h3 class="panel-title">
+
+                            <span class="glyphicon glyphicon-arrow-right">
+
+                                <legend>
+                                    <h1>{{ question.question_text }}</h1>
+                                </legend>
+                                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+                        </h3>
+
+                    </div>
+
+                    {% if question.choice_set.all %}
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            {% for choice in question.choice_set.all %}
+
+                            <li class="list-group-item">
+                                <div class="radio">
+                                    <label for="choice{{ forloop.counter }}"> {{ choice.choice_text }} </label>
+
+                                    <input type="radio" name="choice" id="choice{{ forloop.counter }}"
+                                        value="{{ choice.id }}">
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <input type="submit" value="Vote" class="btn btn-primary btn-sm">
+                    </div>
+
+                    {% else %}
+                    <h1>This poll haven't had choices yet</h1>
+                    {% endif %}
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

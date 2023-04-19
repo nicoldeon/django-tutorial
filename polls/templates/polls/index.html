@@ -1,11 +1,47 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
-{% if latest_question_list %}
-<ul>
-    {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No polls are available.</p>
-{% endif %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- {% load static %} -->
+
+<!-- <link rel="stylesheet" href="{% static 'polls/style.css' %}"> -->
+
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="ibox-content forum-container">
+
+            <div class="forum-title">
+                <h3>LIST OF 5 NEWEST QUESTIONS</h3>
+            </div>
+            {% if latest_question_list %}
+            {% for question in latest_question_list %}
+            <div class="forum-item active">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="forum-icon">
+                            <i class="fa fa-shield"></i>
+                        </div>
+                        <a href="{% url 'polls:detail' question.id %}"
+                            class="forum-item-title">Question#{{question.id}}</a>
+                        <div class="forum-sub-title">{{question.question_text}}</div>
+                    </div>
+                    <div class="col-md-1 forum-info">
+                        <button>
+                            <a href="{% url 'polls:detail' question.id %}">
+                                Click to vote
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {% else %}
+            <p>No polls are available.</p>
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
