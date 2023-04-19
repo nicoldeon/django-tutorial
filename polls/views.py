@@ -3,8 +3,11 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.template import loader
 from .models import Question, Choice
+from django.views import View
 # Create your views here.
+
 
 
 class IndexView(generic.ListView):
@@ -22,6 +25,7 @@ class IndexView(generic.ListView):
 #         "latest_question_list": latest_question_list
 #     }
 #     return render(request, "polls/index.html", context)
+
 
 class DetailView(generic.DetailView):
     model = Question
